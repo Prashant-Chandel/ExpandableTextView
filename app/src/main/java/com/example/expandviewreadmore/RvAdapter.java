@@ -18,6 +18,7 @@ package com.example.expandviewreadmore;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -66,11 +67,25 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        AddReadMoreOption readMoreOption = new AddReadMoreOption.Builder(context)
+                // Optional parameters
+//                .setTextLength(3, AddReadMoreOption.TYPE_LINE) //OR
+                .setTextLength(300, AddReadMoreOption.TYPE_CHARACTER)
+                .setMoreLabel("MORE")
+                .setLessLabel("LESS")
+                .setMoreLabelColor(Color.RED)
+                .setLessLabelColor(Color.BLUE)
+                .setLabelUnderLine(true)
+                .setExpandAnimation(true)
+                .build();
         if (position % 2 == 0) {
             readMoreOption.addReadMoreTo(holder.mTextView, Html.fromHtml(context.getString(R.string.dummy_text)));
         } else {
             readMoreOption.addReadMoreTo(holder.mTextView, Html.fromHtml(context.getString(R.string.dummy_text)).toString());
         }
+
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

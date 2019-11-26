@@ -43,21 +43,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
 
-//        TextView tv = (TextView)findViewById(R.id.tv);
-//        tv.setText(getString(R.string.dummy_text));
-//
-//        ReadMoreOption readMoreOption = new ReadMoreOption.Builder(this)
-//              // Optional parameters
-//                .setTextLength(3, ReadMoreOption.TYPE_LINE) //OR
-//              //.setTextLength(300, ReadMoreOption.TYPE_CHARACTER)
-//                .setMoreLabel("MORE")
-//                .setLessLabel("LESS")
-//                .setMoreLabelColor(Color.RED)
-//                .setLessLabelColor(Color.BLUE)
-//                .setLabelUnderLine(true)
-//                .setExpandAnimation(true)
-//                .build();
-//        readMoreOption.addReadMoreTo(tv, getString(R.string.dummy_text));
+
+
 
     }
 }
