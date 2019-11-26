@@ -30,8 +30,8 @@ Add the dependencies to your Gradle files:
 -Step 2. Add the dependency
 ```java
    dependencies {
-	        implementation 'com.github.Prashant-Chandel:ExpandableTextView:1.0.1'
-	}
+              implementation 'com.github.Prashant-Chandel:ExpandableTextView:1.0.2'	
+	      }
 ```
 Step 1. Add the JitPack repository to your build file
 ## maven
