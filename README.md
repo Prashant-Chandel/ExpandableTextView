@@ -1,5 +1,16 @@
 # ExpandableTextView
 This is an Android library for dealing with Readmore option in text view at the last of the text.
+# DEMO Screen shots
+
+
+
+![alt text](https://github.com/Prashant-Chandel/ExpandableTextView/blob/master/ScreenShot/Screenshot_1574769509.png)
+![alt text](https://github.com/Prashant-Chandel/ExpandableTextView/blob/master/ScreenShot/Screenshot_1574769513.png)
+![alt text](https://github.com/Prashant-Chandel/ExpandableTextView/blob/master/ScreenShot/Screenshot_1574769517.png)
+![alt text](https://github.com/Prashant-Chandel/ExpandableTextView/blob/master/ScreenShot/Screenshot_1574769629.png)
+![alt text](https://github.com/Prashant-Chandel/ExpandableTextView/blob/master/ScreenShot/Screenshot_1574769632.png)
+
+
 
 # Dependency
 
@@ -47,7 +58,7 @@ Step 2. Add the dependency
  AddReadMoreOption readMoreOption = new AddReadMoreOption.Builder(context)
               // Optional parameters
                 .setTextLength(3, AddReadMoreOption.TYPE_LINE) //OR
-              //.setTextLength(300, ReadMoreOption.TYPE_CHARACTER)
+              //.setTextLength(300, AddReadMoreOption.TYPE_CHARACTER)
                 .setMoreLabel("MORE")
                 .setLessLabel("LESS")
                 .setMoreLabelColor(Color.RED)
