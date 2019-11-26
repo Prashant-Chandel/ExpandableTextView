@@ -20,14 +20,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -53,7 +51,7 @@ public class AddReadMoreOption {
     private boolean labelUnderLine;
     private boolean expandAnimation;
 
-    private AddReadMoreOption(Builder builder){
+    private AddReadMoreOption(Builder builder) {
         this.context = builder.context;
         this.textLength = builder.textLength;
         this.textLengthType = builder.textLengthType;
@@ -65,14 +63,13 @@ public class AddReadMoreOption {
         this.expandAnimation = builder.expandAnimation;
     }
 
-    public void addReadMoreTo(final TextView textView, final CharSequence text){
-        if(textLengthType==TYPE_CHARACTER) {
+    public void addReadMoreTo(final TextView textView, final CharSequence text) {
+        if (textLengthType == TYPE_CHARACTER) {
             if (text.length() <= textLength) {
                 textView.setText(text);
                 return;
             }
-        }
-        else {
+        } else {
             // If TYPE_LINE
             textView.setLines(textLength);
             textView.setText(text);
@@ -84,19 +81,24 @@ public class AddReadMoreOption {
 
                 int textLengthNew = textLength;
 
-                if(textLengthType==TYPE_LINE) {
+                if (textLengthType == TYPE_LINE) {
 
-
-                    if (textView.getLayout().getLineCount() <= textLength) {
-                        textView.setText(text);
-                        return;
+                    try {
+                        if (textView.getLayout().getLineCount() <= textLength) {
+                            textView.setText(text);
+                            return;
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
 
                     String subString = text.toString().substring(textView.getLayout().getLineStart(0),
                             textView.getLayout().getLineEnd(textLength - 1));
-                    textLengthNew = subString.length() - (moreLabel.length()+4+(lp.rightMargin/6));
+                    textLengthNew = subString.length() - (moreLabel.length() + 4 + (lp.rightMargin / 6));
                 }
 
                 SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text.subSequence(0, textLengthNew))
@@ -109,6 +111,7 @@ public class AddReadMoreOption {
                     public void onClick(View view) {
                         addReadLess(textView, text);
                     }
+
                     @Override
                     public void updateDrawState(TextPaint ds) {
                         super.updateDrawState(ds);
@@ -116,12 +119,12 @@ public class AddReadMoreOption {
                         ds.setColor(moreLabelColor);
                     }
                 };
-                ss.setSpan(clickableSpan, ss.length() - moreLabel.length(), ss.length() , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(clickableSpan, ss.length() - moreLabel.length(), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && expandAnimation) {
                     LayoutTransition layoutTransition = new LayoutTransition();
                     layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-                    ((ViewGroup)textView.getParent()).setLayoutTransition(layoutTransition);
+                    ((ViewGroup) textView.getParent()).setLayoutTransition(layoutTransition);
                 }
 
                 textView.setText(ss);
@@ -148,6 +151,7 @@ public class AddReadMoreOption {
                     }
                 });
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
@@ -155,7 +159,7 @@ public class AddReadMoreOption {
                 ds.setColor(lessLabelColor);
             }
         };
-        ss.setSpan(clickableSpan, ss.length() - lessLabel.length(), ss.length() , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan, ss.length() - lessLabel.length(), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(ss);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -168,49 +172,49 @@ public class AddReadMoreOption {
         private int textLengthType = AddReadMoreOption.TYPE_CHARACTER;
         private String moreLabel = "See more";
         private String lessLabel = "See less";
-        private int moreLabelColor = Color.parseColor("#E91E63");
-        private int lessLabelColor =Color.parseColor("#E91E63");
+        private int moreLabelColor = Color.parseColor("#02AC91");
+        private int lessLabelColor = Color.parseColor("#02AC91");
         private boolean labelUnderLine = false;
         private boolean expandAnimation = false;
 
-        public Builder(Context context){
+        public Builder(Context context) {
             this.context = context;
         }
 
         /**
-         * @param length can be no. of line OR no. of characters - default is 100 character
+         * @param length         can be no. of line OR no. of characters - default is 100 character
          * @param textLengthType ReadMoreOption.TYPE_LINE for no. of line OR
          *                       ReadMoreOption.TYPE_CHARACTER for no. of character
          *                       - default is ReadMoreOption.TYPE_CHARACTER
          * @return Builder obj
          */
-        public Builder setTextLength(int length, int textLengthType){
+        public Builder setTextLength(int length, int textLengthType) {
             this.textLength = length;
             this.textLengthType = textLengthType;
             return this;
         }
 
-        public Builder setMoreLabel(String moreLabel){
+        public Builder setMoreLabel(String moreLabel) {
             this.moreLabel = moreLabel;
             return this;
         }
 
-        public Builder setLessLabel(String lessLabel){
+        public Builder setLessLabel(String lessLabel) {
             this.lessLabel = lessLabel;
             return this;
         }
 
-        public Builder setMoreLabelColor(int moreLabelColor){
+        public Builder setMoreLabelColor(int moreLabelColor) {
             this.moreLabelColor = moreLabelColor;
             return this;
         }
 
-        public Builder setLessLabelColor(int lessLabelColor){
+        public Builder setLessLabelColor(int lessLabelColor) {
             this.lessLabelColor = lessLabelColor;
             return this;
         }
 
-        public Builder setLabelUnderLine(boolean labelUnderLine){
+        public Builder setLabelUnderLine(boolean labelUnderLine) {
             this.labelUnderLine = labelUnderLine;
             return this;
         }
@@ -220,12 +224,12 @@ public class AddReadMoreOption {
          *                        - default is false
          * @return Builder obj
          */
-        public Builder setExpandAnimation(boolean expandAnimation){
+        public Builder setExpandAnimation(boolean expandAnimation) {
             this.expandAnimation = expandAnimation;
             return this;
         }
 
-        public AddReadMoreOption build(){
+        public AddReadMoreOption build() {
             return new AddReadMoreOption(this);
         }
 

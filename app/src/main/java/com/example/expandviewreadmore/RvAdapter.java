@@ -75,8 +75,8 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
                 .setLessLabel("LESS")
                 .setMoreLabelColor(Color.RED)
                 .setLessLabelColor(Color.BLUE)
-                .setLabelUnderLine(true)
-                .setExpandAnimation(true)
+                .setLabelUnderLine(false)
+                .setExpandAnimation(false)
                 .build();
         if (position % 2 == 0) {
             readMoreOption.addReadMoreTo(holder.mTextView, Html.fromHtml(context.getString(R.string.dummy_text)));
